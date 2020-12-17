@@ -21,7 +21,6 @@ import java.util.List;
  * Created by huangxy on 2018/8/15.
  */
 public class FlowLayout extends ViewGroup {
-    private static FlowSetData mitemview;
     private Line mLine = null;
     public static final int DEFAULT_SPACING = 20;
     //所有的子控件
@@ -105,7 +104,7 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < size; i++) {
             Object item = list.get(i);
             View inflate = LayoutInflater.from(getContext()).inflate(res, null);
-            mitemview.getCover(item, new FlowViewHolder(inflate), inflate, i);
+            mItemView.getCover(item, new FlowViewHolder(inflate), inflate, i);
             addView(inflate);
         }
     }
@@ -313,12 +312,8 @@ public class FlowLayout extends ViewGroup {
         }
     }
 
-    public interface FlowSetData<T> {
-        void getCover(T item, FlowViewHolder holder, View inflate, int position);
-    }
-
-    public static void onsetFlowLayoutData(FlowSetData mitemview) {
-        FlowLayout.mitemview = mitemview;
+    public abstract static class  FlowSetData<T> {
+        abstract void getCover(T item, FlowViewHolder holder, View inflate, int position);
     }
 
 }
