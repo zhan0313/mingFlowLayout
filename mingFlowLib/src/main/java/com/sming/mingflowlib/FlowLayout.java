@@ -21,6 +21,7 @@ import java.util.List;
  * Created by huangxy on 2018/8/15.
  */
 public class FlowLayout extends ViewGroup {
+    private static FlowSetData mitemview;
     private Line mLine = null;
     public static final int DEFAULT_SPACING = 20;
     //所有的子控件
@@ -90,7 +91,7 @@ public class FlowLayout extends ViewGroup {
     }
 
     //设置 要添加的数据   子布局样式
-    public void setAdapter(List<?> list, int res, ItemView mItemView) {
+    public void setAdapter(List<?> list, int res, FlowSetData mItemView) {
         if (list == null) {
             return;
         }
@@ -102,13 +103,9 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < size; i++) {
             Object item = list.get(i);
             View inflate = LayoutInflater.from(getContext()).inflate(res, null);
-            mItemView.getCover(item, new ViewHolder(inflate), inflate, i);
+            mitemview.getCover(item, new ViewHolder(inflate), inflate, i);
             addView(inflate);
         }
-    }
-
-    public abstract static class ItemView<T> {
-        abstract void getCover(T item, ViewHolder holder, View inflate, int position);
     }
 
     class ViewHolder {
@@ -311,4 +308,12 @@ public class FlowLayout extends ViewGroup {
             }
         }
     }
+
+    public interface  FlowSetData{
+        void getCover(Object item, ViewHolder holder, View inflate, int position);
+    }
+    public static void onsetFlowLayoutData(FlowSetData mitemview){
+        FlowLayout.mitemview = mitemview;
+    }
+
 }
