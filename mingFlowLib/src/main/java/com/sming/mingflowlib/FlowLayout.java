@@ -313,8 +313,8 @@ public class FlowLayout extends ViewGroup {
         }
     }
 
-    public interface FlowSetData {
-        void getCover(Object item, FlowViewHolder holder, View inflate, int position);
+    public interface FlowSetData<T> {
+        void getCover(T item, FlowViewHolder holder, View inflate, int position);
     }
 
     public static void onsetFlowLayoutData(FlowSetData mitemview) {
