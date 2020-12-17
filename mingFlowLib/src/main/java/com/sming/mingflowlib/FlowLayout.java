@@ -104,8 +104,12 @@ public class FlowLayout extends ViewGroup {
         for (int i = 0; i < size; i++) {
             Object item = list.get(i);
             View inflate = LayoutInflater.from(getContext()).inflate(res, null);
-            mItemView.getCover(item, new FlowViewHolder(inflate), inflate, i);
-            addView(inflate);
+            if (inflate != null) {
+                if (item != null) {
+                    mItemView.getCover(item, new FlowViewHolder(inflate), inflate, i);
+                    addView(inflate);
+                }
+            }
         }
     }
 
@@ -256,7 +260,7 @@ public class FlowLayout extends ViewGroup {
         return false;
     }
 
-   public  class Line {
+    public class Line {
         int mWidth = 0;// 该行中所有的子View累加的宽度
         int mHeight = 0;// 该行中所有的子View中高度的那个子View的高度
         List<View> views = new ArrayList<View>();
@@ -312,8 +316,8 @@ public class FlowLayout extends ViewGroup {
         }
     }
 
-    public abstract static class  FlowSetData<T> {
-        abstract void getCover(T item, FlowViewHolder holder, View inflate, int position);
+    public interface FlowSetData<T> {
+        void getCover(T item, FlowViewHolder holder, View inflate, int position);
     }
 
 }
