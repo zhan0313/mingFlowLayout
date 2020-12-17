@@ -73,8 +73,10 @@ public class FlowLayout extends ViewGroup {
         int CENTER = 2;
 
         @IntDef(value = {RIGHT, LEFT, CENTER})
-        @interface Val {}
+        @interface Val {
+        }
     }
+
     //设置第二行的位置
     public void setAlignByCenter(@AlienState.Val int isAlignByCenter) {
         this.isAlignByCenter = isAlignByCenter;
@@ -108,7 +110,7 @@ public class FlowLayout extends ViewGroup {
         }
     }
 
-    class ViewHolder {
+    public class ViewHolder {
         View mConvertView;
 
         public ViewHolder(View mConvertView) {
@@ -135,6 +137,7 @@ public class FlowLayout extends ViewGroup {
             view.setText(text);
         }
     }
+
     public static int dipToPx(Context ctx, float dip) {
         return (int) TypedValue.applyDimension(1, dip, ctx.getResources().getDisplayMetrics());
     }
@@ -145,6 +148,7 @@ public class FlowLayout extends ViewGroup {
             requestLayoutInner();
         }
     }
+
     public void setVerticalSpacing(int spacing) {
         if (mVerticalSpacing != spacing) {
             mVerticalSpacing = spacing;
@@ -302,17 +306,18 @@ public class FlowLayout extends ViewGroup {
                                 break;
                         }
                     }
-                    view.layout(left,top+topOffset,left+childWidth,top + topOffset + childHeight);
+                    view.layout(left, top + topOffset, left + childWidth, top + topOffset + childHeight);
                     left += childWidth + mVerticalSpacing;//为下一个View的left赋值
                 }
             }
         }
     }
 
-    public interface  FlowSetData{
+    public interface FlowSetData {
         void getCover(Object item, ViewHolder holder, View inflate, int position);
     }
-    public static void onsetFlowLayoutData(FlowSetData mitemview){
+
+    public static void onsetFlowLayoutData(FlowSetData mitemview) {
         FlowLayout.mitemview = mitemview;
     }
 
