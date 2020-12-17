@@ -1,0 +1,3 @@
+include ':mingFlowLib'
+include ':app'
+rootProject.name = "MingFlowProject"
